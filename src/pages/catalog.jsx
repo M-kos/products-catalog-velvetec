@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { logout } from 'redux/actions'
 import { Preloader } from 'components/Preloader/Preloader'
+import { CategoryList } from 'components/CategoryList/CategoryList'
 
 const Catalog = ({ logout, loading }) => {
   const logoutHandler = () => {
@@ -15,6 +16,11 @@ const Catalog = ({ logout, loading }) => {
       <NavLink className="btn purple lighten-3" to="/" onClick={logoutHandler}>
         Logout
       </NavLink>
+      <div className="row">
+        <div className="col s12 m8 offset-m2">
+          <CategoryList />
+        </div>
+      </div>
     </>
   )
 }
