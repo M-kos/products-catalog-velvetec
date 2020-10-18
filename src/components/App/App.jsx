@@ -1,8 +1,16 @@
 import React from 'react'
-import './App.css'
+import { BrowserRouter } from 'react-router-dom'
+import { useRoutes } from 'hooks/useRoutes'
+import './App.scss'
 
 function App() {
-  return <div className="App">Hello</div>
+  const routes = useRoutes(true)
+
+  return (
+    <BrowserRouter>
+      <div className="App">{routes}</div>
+    </BrowserRouter>
+  )
 }
 
 export default App
