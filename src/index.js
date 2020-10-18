@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from 'components/App/App'
 
+import 'materialize-css/dist/js/materialize.min.js'
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
