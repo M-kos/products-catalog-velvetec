@@ -1,8 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
+import { login } from 'redux/actions'
+import { Preloader } from 'components/Preloader/Preloader'
 
-export const Login = () => {
+const Login = ({ login, loading }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  useEffect(() => {
+    if (window.M) {
+      window.M.updateTextFields()
+    }
+  })
 
   const changeHandler = (event) => {
     switch (event.target?.name) {
@@ -15,6 +24,10 @@ export const Login = () => {
       default:
         throw new Error('Something went wrong...')
     }
+  }
+
+  const loginHandler = () => {
+    login(email, password)
   }
 
   return (
@@ -47,12 +60,25 @@ export const Login = () => {
             </div>
           </div>
           <div className="card-action right-align">
-            <button className="btn purple lighten-3" onClick={() => {}}>
+            <button
+              className="btn purple lighten-3"
+              type="button"
+              onClick={loginHandler}
+            >
               Login
             </button>
           </div>
+          {loading && <Preloader />}
         </div>
       </div>
     </div>
   )
 }
+
+const mapStateToProps = ({ login: { loading } }) => {
+  return { loading }
+}
+
+const connectLogin = connect(mapStateToProps, { login })(Login)
+
+export { connectLogin as Login }

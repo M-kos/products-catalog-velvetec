@@ -1,16 +1,46 @@
-import React from 'react'
-import { BrowserRouter } from 'react-router-dom'
-import { useRoutes } from 'hooks/useRoutes'
+import React, { useLayoutEffect } from 'react'
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { fetchUser } from 'redux/actions/loginAction'
+import { Login } from 'pages/login'
+import { Catalog } from 'pages/catalog'
+import { Preloader } from 'components/Preloader/Preloader'
 import './App.scss'
 
-function App() {
-  const routes = useRoutes(true)
+function App({ fetchUser, isAuth, user, loading }) {
+  useLayoutEffect(() => {
+    fetchUser()
+  }, [fetchUser])
+
+  if (loading && !user) {
+    return <Preloader />
+  }
 
   return (
     <BrowserRouter>
-      <div className="App">{routes}</div>
+      <div className="App">
+        {isAuth ? (
+          <Switch>
+            <Route path="/catalog" exact>
+              <Catalog />
+            </Route>
+            <Redirect to="/catalog" />
+          </Switch>
+        ) : (
+          <Switch>
+            <Route path="/login" exact>
+              <Login />
+            </Route>
+            <Redirect to="/login" />
+          </Switch>
+        )}
+      </div>
     </BrowserRouter>
   )
 }
 
-export default App
+const mapStateToProps = ({ login: { isAuth, user }, app: { loading } }) => {
+  return { isAuth, user, loading }
+}
+
+export default connect(mapStateToProps, { fetchUser })(App)
