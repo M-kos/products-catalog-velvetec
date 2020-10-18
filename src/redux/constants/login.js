@@ -1,0 +1,5 @@
+export const LOGIN_ACTION_CONST = {
+  LOGIN: 'LOGIN',
+  LOGOUT: 'LOGOUT',
+  FETCH_USER: 'FETCH_USER',
+}
