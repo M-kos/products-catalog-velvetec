@@ -33,7 +33,7 @@ const Login = ({ login, loading }) => {
 
   return (
     <div className="row">
-      <div className="col s4 offset-s4">
+      <div className="col s12 m4 offset-m4">
         <div className="card">
           <form onSubmit={submitHandler}>
             <div className="card-content">
