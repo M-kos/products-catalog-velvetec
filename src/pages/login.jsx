@@ -26,7 +26,8 @@ const Login = ({ login, loading }) => {
     }
   }
 
-  const loginHandler = () => {
+  const submitHandler = (event) => {
+    event.preventDefault()
     login(email, password)
   }
 
@@ -34,40 +35,38 @@ const Login = ({ login, loading }) => {
     <div className="row">
       <div className="col s4 offset-s4">
         <div className="card">
-          <div className="card-content">
-            <span className="card-title pb-3">Login</span>
-            <div className="input-field">
-              <input
-                placeholder="Enter your email"
-                id="email"
-                type="text"
-                name="email"
-                onChange={changeHandler}
-                value={email}
-              />
-              <label htmlFor="email">Email</label>
+          <form onSubmit={submitHandler}>
+            <div className="card-content">
+              <span className="card-title pb-3">Login</span>
+              <div className="input-field">
+                <input
+                  placeholder="Enter your email"
+                  id="email"
+                  type="text"
+                  name="email"
+                  onChange={changeHandler}
+                  value={email}
+                />
+                <label htmlFor="email">Email</label>
+              </div>
+              <div className="input-field">
+                <input
+                  placeholder="Enter your password"
+                  id="password"
+                  type="password"
+                  name="password"
+                  onChange={changeHandler}
+                  value={password}
+                />
+                <label htmlFor="password">Password</label>
+              </div>
             </div>
-            <div className="input-field">
-              <input
-                placeholder="Enter your password"
-                id="password"
-                type="password"
-                name="password"
-                onChange={changeHandler}
-                value={password}
-              />
-              <label htmlFor="password">Password</label>
+            <div className="card-action right-align">
+              <button className="btn purple lighten-3" type="submit">
+                Login
+              </button>
             </div>
-          </div>
-          <div className="card-action right-align">
-            <button
-              className="btn purple lighten-3"
-              type="button"
-              onClick={loginHandler}
-            >
-              Login
-            </button>
-          </div>
+          </form>
           {loading && <Preloader />}
         </div>
       </div>
