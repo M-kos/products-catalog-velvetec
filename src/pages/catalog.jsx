@@ -13,7 +13,11 @@ const Catalog = ({ logout, loading }) => {
   return (
     <>
       {loading && <Preloader />}
-      <NavLink className="btn purple lighten-3" to="/" onClick={logoutHandler}>
+      <NavLink
+        className="btn deep-orange lighten-3"
+        to="/"
+        onClick={logoutHandler}
+      >
         Logout
       </NavLink>
       <div className="row">

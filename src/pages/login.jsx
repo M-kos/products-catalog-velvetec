@@ -62,7 +62,7 @@ const Login = ({ login, loading }) => {
               </div>
             </div>
             <div className="card-action right-align">
-              <button className="btn purple lighten-3" type="submit">
+              <button className="btn deep-orange lighten-3" type="submit">
                 Login
               </button>
             </div>
