@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { fetchCategories, addCategoryItem } from 'redux/actions'
 import { CategoryItem } from 'components/CategoryItem/CategoryItem'
 import { CircularPreloader } from 'components/CircularPreloader/CircularPreloader'
+import { CategoryForm } from 'components/CategoryForm/CategoryForm'
 import { Modal } from 'components/Modal/Modal'
 
 import './CategoryList.scss'
@@ -13,6 +14,7 @@ const CategoryList = ({
   loading,
   addCategoryItem,
 }) => {
+  const [categoryName, setCategoryName] = useState('')
   const [showModal, setShowModal] = useState(false)
 
   useEffect(() => {
@@ -23,14 +25,22 @@ const CategoryList = ({
 
   if (categories && categories.length) {
     list = categories.map((category) => {
-      return <CategoryItem key={category.key} />
+      return <CategoryItem key={category.id} category={category} />
     })
   }
 
   const modalHandler = (e) => {
-    e.preventDefault()
-    e.stopPropagation()
+    if (e) {
+      e.preventDefault()
+      e.stopPropagation()
+    }
     setShowModal((prev) => !prev)
+  }
+
+  const addHandler = () => {
+    addCategoryItem(categoryName)
+    modalHandler()
+    setCategoryName('')
   }
 
   return (
@@ -53,7 +63,17 @@ const CategoryList = ({
           list
         )}
       </ul>
-      {showModal && <Modal reject={modalHandler} />}
+      <Modal
+        show={showModal}
+        reject={modalHandler}
+        confirm={addHandler}
+        title="Add Category"
+      >
+        <CategoryForm
+          categoryName={categoryName}
+          setCategoryName={setCategoryName}
+        />
+      </Modal>
     </>
   )
 }

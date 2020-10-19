@@ -25,7 +25,7 @@ export const fetchCategories = () => (dispatch) => {
         const categories = []
 
         snapshot.forEach((snap) => {
-          categories.push(snap.val())
+          categories.push({ ...snap.val(), id: snap.key })
         })
 
         dispatch(setCategories(APP_ACTION_CONST.FETCH_CATEGORIES, categories))
@@ -42,8 +42,30 @@ export const addCategoryItem = (name) => async (dispatch) => {
     await firebase.database().ref('/categories').push({
       name,
     })
+  } catch (error) {
+    dispatch(appError(error))
+  }
+}
 
-    fetchCategories()
+export const removeCategoryItem = (id) => async (dispatch) => {
+  try {
+    await firebase
+      .database()
+      .ref('/categories/' + id)
+      .remove()
+  } catch (error) {
+    dispatch(appError(error))
+  }
+}
+
+export const updateCategoryItem = (id, name) => async (dispatch) => {
+  try {
+    await firebase
+      .database()
+      .ref('/categories/' + id)
+      .update({
+        name,
+      })
   } catch (error) {
     dispatch(appError(error))
   }
