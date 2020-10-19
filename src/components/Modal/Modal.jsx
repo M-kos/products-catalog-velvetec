@@ -1,18 +1,22 @@
 import React from 'react'
-import { Portal } from 'components/Portal/Portal'
 
 import './Modal.scss'
 
-export const Modal = ({ title, reject, confirm, children }) => {
-  return (
-    <Portal>
+export const Modal = ({ show, title, reject, confirm, children }) => {
+  const cardClickHandler = (e) => {
+    e.stopPropagation()
+    e.preventDefault()
+  }
+
+  if (show) {
+    return (
       <div className="modalOverlay" onClick={reject}>
-        <div className="card">
-          <div className="card-content white-text">
+        <div className="card modalCard" onClick={cardClickHandler}>
+          <div className="card-content">
             <span className="card-title pb-3">{title}</span>
             {children}
           </div>
-          <div className="card-action">
+          <div className="card-action right-align">
             <button
               className="btn waves-effect waves-light mr-3"
               type="button"
@@ -30,6 +34,8 @@ export const Modal = ({ title, reject, confirm, children }) => {
           </div>
         </div>
       </div>
-    </Portal>
-  )
+    )
+  }
+
+  return null
 }
