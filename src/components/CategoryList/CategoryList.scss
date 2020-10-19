@@ -1,5 +1,14 @@
-.category-list-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.category-list {
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &-preloader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80px;
+  }
 }

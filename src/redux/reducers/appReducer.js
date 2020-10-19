@@ -28,7 +28,7 @@ export const appReducer = (state = initialState, { type, payload }) => {
     case APP_ACTION_CONST.ADD_PRODUCT_ITEM:
     case APP_ACTION_CONST.UPDATE_PRODUCT_ITEM:
     case APP_ACTION_CONST.REMOVE_PRODUCT_ITEM:
-
+      break
     default:
       return state
   }

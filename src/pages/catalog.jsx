@@ -29,7 +29,7 @@ const Catalog = ({ logout, loading }) => {
   )
 }
 
-const mapStateToProps = ({ login: { loading } }) => {
+const mapStateToProps = ({ app: { loading } }) => {
   return { loading }
 }
 

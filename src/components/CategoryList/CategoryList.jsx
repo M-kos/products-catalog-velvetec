@@ -2,17 +2,18 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { fetchCategories } from 'redux/actions'
 import { CategoryItem } from 'components/CategoryItem/CategoryItem'
+import { CircularPreloader } from 'components/CircularPreloader/CircularPreloader'
 
 import './CategoryList.scss'
 
-const CategoryList = ({ fetchCategories, categories }) => {
+const CategoryList = ({ fetchCategories, categories, loading }) => {
   useEffect(() => {
     fetchCategories()
   }, [fetchCategories])
 
   let list = <li className="collection-item">Empty</li>
 
-  if (categories) {
+  if (categories && categories.length) {
     list = categories.map((category) => {
       return <CategoryItem key={category.key} />
     })
@@ -26,13 +27,19 @@ const CategoryList = ({ fetchCategories, categories }) => {
           <i className="material-icons">add</i>
         </button>
       </li>
-      {list}
+      {loading ? (
+        <div className="category-list-preloader-container">
+          <CircularPreloader />
+        </div>
+      ) : (
+        list
+      )}
     </ul>
   )
 }
 
-const mapStateToProps = ({ login: { categories } }) => {
-  return { categories }
+const mapStateToProps = ({ app: { categories, loading } }) => {
+  return { categories, loading }
 }
 
 const categoryListConnect = connect(mapStateToProps, { fetchCategories })(
