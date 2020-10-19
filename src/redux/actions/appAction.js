@@ -14,7 +14,7 @@ export const appError = (error) => ({
   payload: error,
 })
 
-export const fetchCategories = () => async (dispatch) => {
+export const fetchCategories = () => (dispatch) => {
   try {
     dispatch(showLoader())
 
@@ -34,5 +34,17 @@ export const fetchCategories = () => async (dispatch) => {
   } catch (error) {
     dispatch(appError(error))
     dispatch(hideLoader())
+  }
+}
+
+export const addCategoryItem = (name) => async (dispatch) => {
+  try {
+    await firebase.database().ref('/categories').push({
+      name,
+    })
+
+    fetchCategories()
+  } catch (error) {
+    dispatch(appError(error))
   }
 }
