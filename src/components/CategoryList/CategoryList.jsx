@@ -17,32 +17,62 @@ const CategoryList = ({
   categoryOperationHandler,
 }) => {
   const [categoryName, setCategoryName] = useState('')
+  const [categoryId, setCategoryId] = useState(null)
+  const [operation, setOperation] = useState('')
   const [showModal, setShowModal] = useState(false)
 
   useEffect(() => {
     fetchCategories()
   }, [fetchCategories])
 
-  let list = <li className="collection-item">Empty</li>
-
-  if (categories && categories.length) {
-    list = categories.map((category) => {
-      return <CategoryItem key={category.id} category={category} />
-    })
-  }
-
   const modalHandler = (e) => {
     if (e) {
       e.preventDefault()
       e.stopPropagation()
     }
+
+    if (e?.target?.name === 'confirm') {
+      categoryOperationHandler(operation, {
+        id: categoryId,
+        name: categoryName,
+      })
+    }
+
+    setCategoryName()
+    setCategoryId()
+    setOperation()
     setShowModal((prev) => !prev)
   }
 
   const addHandler = () => {
-    categoryOperationHandler(OPERATION.ADD, categoryName)
-    modalHandler()
-    setCategoryName('')
+    setOperation(OPERATION.ADD)
+    setShowModal(true)
+  }
+
+  const updateHandler = ({ id, name }) => {
+    setCategoryName(name)
+    setCategoryId(id)
+    setOperation(OPERATION.UPDATE)
+    setShowModal(true)
+  }
+
+  const deleteHandler = ({ id }) => {
+    categoryOperationHandler(OPERATION.REMOVE, { id })
+  }
+
+  let list = <li className="collection-item">Empty</li>
+
+  if (categories && categories.length) {
+    list = categories.map((category) => {
+      return (
+        <CategoryItem
+          key={category.id}
+          category={category}
+          updateHandler={updateHandler}
+          deleteHandler={deleteHandler}
+        />
+      )
+    })
   }
 
   return (
@@ -52,7 +82,7 @@ const CategoryList = ({
           <h5 className="mt-1 mb-1">Category</h5>
           <button
             className="btn-floating waves-effect waves-light deep-orange"
-            onClick={modalHandler}
+            onClick={addHandler}
           >
             <i className="material-icons">add</i>
           </button>
@@ -65,12 +95,7 @@ const CategoryList = ({
           list
         )}
       </ul>
-      <Modal
-        show={showModal}
-        reject={modalHandler}
-        confirm={addHandler}
-        title="Add Category"
-      >
+      <Modal show={showModal} actionHandler={modalHandler} title="Add Category">
         <CategoryForm
           categoryName={categoryName}
           setCategoryName={setCategoryName}

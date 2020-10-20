@@ -2,7 +2,7 @@ import React from 'react'
 
 import './Modal.scss'
 
-export const Modal = ({ show, title, reject, confirm, children }) => {
+export const Modal = ({ show, title, actionHandler, children }) => {
   const cardClickHandler = (e) => {
     e.stopPropagation()
     e.preventDefault()
@@ -10,7 +10,7 @@ export const Modal = ({ show, title, reject, confirm, children }) => {
 
   if (show) {
     return (
-      <div className="modalOverlay" onClick={reject}>
+      <div className="modalOverlay" onClick={actionHandler}>
         <div className="card modalCard" onClick={cardClickHandler}>
           <div className="card-content">
             <span className="card-title pb-3">{title}</span>
@@ -20,14 +20,16 @@ export const Modal = ({ show, title, reject, confirm, children }) => {
             <button
               className="btn waves-effect waves-light mr-3"
               type="button"
-              onClick={reject}
+              name="reject"
+              onClick={actionHandler}
             >
               Cancel
             </button>
             <button
               className="btn waves-effect waves-light deep-orange"
               type="button"
-              onClick={confirm}
+              name="confirm"
+              onClick={actionHandler}
             >
               Ok
             </button>

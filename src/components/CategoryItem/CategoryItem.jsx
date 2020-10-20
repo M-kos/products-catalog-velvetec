@@ -1,29 +1,39 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { removeCategoryItem } from 'redux/actions'
 
 import './CategoryItem.scss'
 
-const CategoryItem = ({ category, removeCategoryItem }) => {
-  const deleteHandler = () => {
-    removeCategoryItem(category.id)
+export const CategoryItem = ({ category, updateHandler, deleteHandler }) => {
+  const onAction = (e) => {
+    switch (e?.currentTarget?.name) {
+      case 'update':
+        updateHandler(category)
+        break
+      case 'delete':
+        deleteHandler(category)
+        break
+      default:
+        break
+    }
   }
 
   return (
-    <li className="collection-item">
+    <li className="collection-item flex-row flex-ai-center">
       <p>{category.name}</p>
-      <i className="material-icons">create</i>
-      <i className="material-icons" onClick={deleteHandler}>
-        delete
-      </i>
+      <div className="flex-fill"></div>
+      <button
+        className="btn-floating btn-small z-depth-0 green darken-1 mr-2"
+        name="update"
+        onClick={onAction}
+      >
+        <i className="material-icons">create</i>
+      </button>
+      <button
+        className="btn-floating btn-small z-depth-0 red darken-4"
+        name="delete"
+        onClick={onAction}
+      >
+        <i className="material-icons">delete</i>
+      </button>
     </li>
   )
 }
-
-const mapDispatchToProps = {
-  removeCategoryItem,
-}
-
-const categoryItemConnect = connect(null, mapDispatchToProps)(CategoryItem)
-
-export { categoryItemConnect as CategoryItem }

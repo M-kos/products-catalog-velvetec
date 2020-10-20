@@ -36,17 +36,15 @@ export const fetchCategories = () => (dispatch) => {
   }
 }
 
-export const addCategoryItem = (name) => async (dispatch) => {
+export const addCategoryItem = ({ name }) => async (dispatch) => {
   try {
-    await CategoryDb.addItem({
-      name,
-    })
+    await CategoryDb.addItem({ name })
   } catch (error) {
     dispatch(appError(error))
   }
 }
 
-export const removeCategoryItem = (id) => async (dispatch) => {
+export const removeCategoryItem = ({ id }) => async (dispatch) => {
   try {
     await CategoryDb.removeItem(id)
   } catch (error) {
@@ -54,7 +52,7 @@ export const removeCategoryItem = (id) => async (dispatch) => {
   }
 }
 
-export const updateCategoryItem = (id, name) => async (dispatch) => {
+export const updateCategoryItem = ({ id, name }) => async (dispatch) => {
   try {
     await CategoryDb.updateItem(id, {
       name,
