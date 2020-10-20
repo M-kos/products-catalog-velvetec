@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { fetchCategories, addCategoryItem } from 'redux/actions'
+import { fetchCategories, categoryOperationHandler } from 'redux/actions'
+import { OPERATION } from 'redux/constants'
+
 import { CategoryItem } from 'components/CategoryItem/CategoryItem'
 import { CircularPreloader } from 'components/CircularPreloader/CircularPreloader'
 import { CategoryForm } from 'components/CategoryForm/CategoryForm'
@@ -12,7 +14,7 @@ const CategoryList = ({
   fetchCategories,
   categories,
   loading,
-  addCategoryItem,
+  categoryOperationHandler,
 }) => {
   const [categoryName, setCategoryName] = useState('')
   const [showModal, setShowModal] = useState(false)
@@ -38,7 +40,7 @@ const CategoryList = ({
   }
 
   const addHandler = () => {
-    addCategoryItem(categoryName)
+    categoryOperationHandler(OPERATION.ADD, categoryName)
     modalHandler()
     setCategoryName('')
   }
@@ -84,7 +86,7 @@ const mapStateToProps = ({ app: { categories, loading } }) => {
 
 const mapDispatchToProps = {
   fetchCategories,
-  addCategoryItem,
+  categoryOperationHandler,
 }
 
 const categoryListConnect = connect(

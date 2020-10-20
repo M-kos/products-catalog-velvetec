@@ -1,5 +1,5 @@
 import { FirebaseDb } from 'request/FirebaseDb'
-import { APP_ACTION_CONST } from 'redux/constants'
+import { APP_ACTION_CONST, OPERATION } from 'redux/constants'
 
 const CategoryDb = new FirebaseDb('/categories')
 
@@ -61,5 +61,21 @@ export const updateCategoryItem = (id, name) => async (dispatch) => {
     })
   } catch (error) {
     dispatch(appError(error))
+  }
+}
+
+export const categoryOperationHandler = (operation, ...rest) => (dispatch) => {
+  switch (operation) {
+    case OPERATION.ADD:
+      dispatch(addCategoryItem(...rest))
+      break
+    case OPERATION.REMOVE:
+      dispatch(removeCategoryItem(...rest))
+      break
+    case OPERATION.UPDATE:
+      dispatch(updateCategoryItem(...rest))
+      break
+    default:
+      break
   }
 }
