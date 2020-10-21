@@ -3,7 +3,7 @@ import { APP_ACTION_CONST } from 'redux/constants'
 const initialState = {
   loading: true,
   categories: null,
-  products: [],
+  products: null,
   error: null,
 }
 
@@ -20,11 +20,12 @@ export const appReducer = (state = initialState, { type, payload }) => {
 
     case APP_ACTION_CONST.FETCH_CATEGORIES:
       return { ...state, categories: payload }
+    case APP_ACTION_CONST.FETCH_PRODUCTS:
+      return { ...state, products: payload }
 
     case APP_ACTION_CONST.ADD_CATEGORY_ITEM:
     case APP_ACTION_CONST.UPDATE_CATEGORY_ITEM:
     case APP_ACTION_CONST.REMOVE_CATEGORY_ITEM:
-    case APP_ACTION_CONST.FETCH_PRODUCTS:
     case APP_ACTION_CONST.ADD_PRODUCT_ITEM:
     case APP_ACTION_CONST.UPDATE_PRODUCT_ITEM:
     case APP_ACTION_CONST.REMOVE_PRODUCT_ITEM:
