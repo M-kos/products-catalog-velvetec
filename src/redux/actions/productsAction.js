@@ -2,25 +2,25 @@ import { FirebaseDb } from 'request/FirebaseDb'
 import { APP_ACTION_CONST, OPERATION } from 'redux/constants'
 import { showLoader, hideLoader, appError } from './appAction'
 
-const CategoryDb = new FirebaseDb('/products')
+const ProductDb = new FirebaseDb('/products')
 
-export const setCategories = (type, categories) => ({
+export const setProducts = (type, products) => ({
   type,
-  payload: categories,
+  payload: products,
 })
 
-export const fetchCategories = () => (dispatch) => {
+export const fetchProducts = () => (dispatch) => {
   try {
     dispatch(showLoader())
 
-    CategoryDb.subscribeDb((snapshot) => {
-      const categories = []
+    ProductDb.subscribeDb((snapshot) => {
+      const products = []
 
       snapshot.forEach((snap) => {
-        categories.push({ ...snap.val(), id: snap.key })
+        products.push({ ...snap.val(), id: snap.key })
       })
 
-      dispatch(setCategories(APP_ACTION_CONST.FETCH_CATEGORIES, categories))
+      dispatch(setProducts(APP_ACTION_CONST.FETCH_PRODUCTS, products))
       dispatch(hideLoader())
     })
   } catch (error) {
@@ -29,42 +29,40 @@ export const fetchCategories = () => (dispatch) => {
   }
 }
 
-export const addCategoryItem = ({ name }) => async (dispatch) => {
+export const addProductItem = (payload) => async (dispatch) => {
   try {
-    await CategoryDb.addItem({ name })
+    await ProductDb.addItem(payload)
   } catch (error) {
     dispatch(appError(error))
   }
 }
 
-export const removeCategoryItem = ({ id }) => async (dispatch) => {
+export const removeProductItem = ({ id }) => async (dispatch) => {
   try {
-    await CategoryDb.removeItem(id)
+    await ProductDb.removeItem(id)
   } catch (error) {
     dispatch(appError(error))
   }
 }
 
-export const updateCategoryItem = ({ id, name }) => async (dispatch) => {
+export const updateProductItem = ({ id, ...payload }) => async (dispatch) => {
   try {
-    await CategoryDb.updateItem(id, {
-      name,
-    })
+    await ProductDb.updateItem(id, payload)
   } catch (error) {
     dispatch(appError(error))
   }
 }
 
-export const categoryOperationHandler = (operation, ...rest) => (dispatch) => {
+export const productOperationHandler = (operation, ...rest) => (dispatch) => {
   switch (operation) {
     case OPERATION.ADD:
-      dispatch(addCategoryItem(...rest))
+      dispatch(addProductItem(...rest))
       break
     case OPERATION.REMOVE:
-      dispatch(removeCategoryItem(...rest))
+      dispatch(removeProductItem(...rest))
       break
     case OPERATION.UPDATE:
-      dispatch(updateCategoryItem(...rest))
+      dispatch(updateProductItem(...rest))
       break
     default:
       break
