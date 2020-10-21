@@ -1,12 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { logout } from 'redux/actions'
+import { logout, fetchData } from 'redux/actions'
 import { Preloader } from 'components/Preloader/Preloader'
 import { CategoryList } from 'components/CategoryList/CategoryList'
 
-const Catalog = ({ logout, loading }) => {
+const Catalog = ({ logout, loading, fetchData }) => {
+  useEffect(() => {
+    fetchData()
+  }, [fetchData])
+
   const logoutHandler = () => {
     logout()
   }
@@ -55,6 +59,6 @@ const mapStateToProps = ({ app: { loading } }) => {
   return { loading }
 }
 
-const catalogConnect = connect(mapStateToProps, { logout })(Catalog)
+const catalogConnect = connect(mapStateToProps, { logout, fetchData })(Catalog)
 
 export { catalogConnect as Catalog }

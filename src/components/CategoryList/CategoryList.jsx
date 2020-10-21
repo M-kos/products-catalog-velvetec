@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { fetchCategories, categoryOperationHandler } from 'redux/actions'
+import { categoryOperationHandler } from 'redux/actions'
 import { OPERATION } from 'redux/constants'
 
 import { CategoryItem } from 'components/CategoryItem/CategoryItem'
@@ -10,20 +10,11 @@ import { Modal } from 'components/Modal/Modal'
 
 import './CategoryList.scss'
 
-const CategoryList = ({
-  fetchCategories,
-  categories,
-  loading,
-  categoryOperationHandler,
-}) => {
+const CategoryList = ({ categories, loading, categoryOperationHandler }) => {
   const [categoryName, setCategoryName] = useState('')
   const [categoryId, setCategoryId] = useState(null)
   const [operation, setOperation] = useState('')
   const [showModal, setShowModal] = useState(false)
-
-  useEffect(() => {
-    fetchCategories()
-  }, [fetchCategories])
 
   const modalHandler = (e) => {
     if (e) {
@@ -110,7 +101,6 @@ const mapStateToProps = ({ app: { categories, loading } }) => {
 }
 
 const mapDispatchToProps = {
-  fetchCategories,
   categoryOperationHandler,
 }
 
