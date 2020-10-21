@@ -10,8 +10,19 @@ import { Modal } from 'components/Modal/Modal'
 
 import './ProductsList.scss'
 
-const ProductsList = ({ products, loading, productOperationHandler }) => {
+const ProductsList = ({
+  products,
+  categories,
+  loading,
+  productOperationHandler,
+}) => {
   const [showModal, setShowModal] = useState(false)
+  const [productData, setProductData] = useState({
+    productName: '',
+    productPrice: '',
+    expirationDate: '',
+    categoryList: '',
+  })
 
   const modalHandler = (e) => {
     if (e) {
@@ -73,15 +84,24 @@ const ProductsList = ({ products, loading, productOperationHandler }) => {
           list
         )}
       </ul>
-      <Modal show={showModal} actionHandler={modalHandler} title="Add Product">
-        <ProductForm />
+      <Modal
+        show={showModal}
+        actionHandler={modalHandler}
+        title="Add Product"
+        style={{ minWidth: '600px' }}
+      >
+        <ProductForm
+          selectOptions={categories}
+          fields={productData}
+          setFields={setProductData}
+        />
       </Modal>
     </>
   )
 }
 
-const mapStateToProps = ({ app: { products, loading } }) => {
-  return { products, loading }
+const mapStateToProps = ({ app: { products, categories, loading } }) => {
+  return { categories, products, loading }
 }
 
 const mapDispatchToProps = {

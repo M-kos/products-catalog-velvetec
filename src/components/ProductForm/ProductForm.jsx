@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-export const ProductForm = () => {
+export const ProductForm = ({ fields, setFields, selectOptions }) => {
   useEffect(() => {
     const elems = document.querySelectorAll('select')
     if (window.M) {
@@ -8,55 +8,73 @@ export const ProductForm = () => {
     }
   }, [])
 
+  const localSelectOptions = selectOptions.map((option) => {
+    return (
+      <option
+        key={option.id}
+        value={option.id}
+        selected={option.id === fields.categoryList}
+      >
+        {option.name}
+      </option>
+    )
+  })
+
   const changeHandler = (e) => {
-    if (e.target?.value?.trim()) {
-    }
+    setFields({ ...fields, [e.target.name]: e.target.value })
   }
+
+  const onSubmit = () => {}
 
   return (
     <>
-      <div className="row">
-        <div className="input-field col s6">
-          <input
-            placeholder="Enter category name"
-            id="categoryName"
-            type="text"
-            name="categoryName"
-            onChange={changeHandler}
-            value="1"
-          />
+      <form onSubmit={onSubmit}>
+        <div className="row">
+          <div className="input-field col s6">
+            <input
+              placeholder="Enter product name"
+              required
+              id="productName"
+              type="text"
+              name="productName"
+              onChange={changeHandler}
+              value={fields.productName}
+            />
+          </div>
+          <div className="input-field col s6">
+            <input
+              placeholder="Enter product price"
+              required
+              id="productPrice"
+              type="number"
+              name="productPrice"
+              onChange={changeHandler}
+              value={fields.productPrice}
+            />
+          </div>
         </div>
-        <div className="input-field col s6">
-          <input
-            placeholder="Enter category name"
-            id="categoryName"
-            type="text"
-            name="categoryName"
-            onChange={changeHandler}
-            value="2"
-          />
+        <div className="row">
+          <div className="input-field col s6">
+            <input
+              placeholder="Enter expiration date"
+              required
+              id="expirationDate"
+              type="date"
+              name="expirationDate"
+              onChange={changeHandler}
+              value={fields.expirationDate}
+            />
+          </div>
+          <div className="input-field col s6">
+            <select required name="categoryList" onChange={changeHandler}>
+              <option value="disabled" disabled selected>
+                Choose category
+              </option>
+              {localSelectOptions}
+            </select>
+          </div>
         </div>
-      </div>
-      <div className="row">
-        <div className="input-field col s6">
-          <input
-            placeholder="Enter category name"
-            id="categoryName"
-            type="text"
-            name="categoryName"
-            onChange={changeHandler}
-            value="3"
-          />
-        </div>
-        <div className="input-field col s6">
-          <select name="categoryList">
-            <option value="category1">133</option>
-            <option value="category2">133</option>
-            <option value="category3">133</option>
-          </select>
-          <label>Choose category</label>
-        </div>
-      </div>
+      </form>
     </>
   )
 }

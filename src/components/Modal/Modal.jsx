@@ -2,16 +2,24 @@ import React from 'react'
 
 import './Modal.scss'
 
-export const Modal = ({ show, title, actionHandler, children }) => {
+export const Modal = ({ show, title, actionHandler, children, style }) => {
   const cardClickHandler = (e) => {
     e.stopPropagation()
     e.preventDefault()
   }
 
+  const localStyles = {
+    minWidth: '350px',
+  }
+
   if (show) {
     return (
       <div className="modalOverlay" onClick={actionHandler}>
-        <div className="card modalCard" onClick={cardClickHandler}>
+        <div
+          className="card"
+          onClick={cardClickHandler}
+          style={style || localStyles}
+        >
           <div className="card-content">
             <span className="card-title pb-3">{title}</span>
             {children}
