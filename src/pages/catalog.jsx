@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { logout, fetchData } from 'redux/actions'
 import { Preloader } from 'components/Preloader/Preloader'
 import { CategoryList } from 'components/CategoryList/CategoryList'
+import { ProductsList } from 'components/ProductsList/ProductsList'
 
 const Catalog = ({ logout, loading, fetchData }) => {
   useEffect(() => {
@@ -45,7 +46,7 @@ const Catalog = ({ logout, loading, fetchData }) => {
               <CategoryList />
             </Route>
             <Route path="/products" exact>
-              <div>Hello</div>
+              <ProductsList />
             </Route>
             <Redirect to="/products" />
           </Switch>
