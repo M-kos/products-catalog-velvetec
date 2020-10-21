@@ -1,7 +1,7 @@
 import { APP_ACTION_CONST } from 'redux/constants'
 
 const initialState = {
-  loading: false,
+  loading: true,
   categories: null,
   products: [],
   error: null,

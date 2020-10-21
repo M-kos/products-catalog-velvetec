@@ -20,12 +20,7 @@ function App({ fetchUser, isAuth, user, loading }) {
     <BrowserRouter>
       <div className="App">
         {isAuth ? (
-          <Switch>
-            <Route path="/catalog" exact>
-              <Catalog />
-            </Route>
-            <Redirect to="/catalog" />
-          </Switch>
+          <Catalog />
         ) : (
           <Switch>
             <Route path="/login" exact>

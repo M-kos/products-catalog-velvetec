@@ -65,7 +65,7 @@ export const login = (email, password) => {
   }
 }
 
-export const fetchUser = () => async (dispatch) => {
+export const fetchUser = () => (dispatch) => {
   try {
     dispatch(showLoader())
 
