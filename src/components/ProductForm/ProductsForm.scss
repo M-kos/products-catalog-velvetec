@@ -1,0 +1,15 @@
+.product-input-wrapper {
+  position: relative;
+
+  & .error {
+    background-color: rgba(255, 0, 0, 0.1)!important;
+    border-bottom: 2px solid rgb(255, 0, 0)!important;
+  }
+
+  & .error-message {
+    position: absolute;
+    bottom: -2px;
+    font-size: 12px;
+    color: rgb(255, 0, 0);
+  }
+}

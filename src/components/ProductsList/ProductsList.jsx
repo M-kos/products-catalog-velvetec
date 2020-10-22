@@ -17,12 +17,55 @@ const ProductsList = ({
   productOperationHandler,
 }) => {
   const [showModal, setShowModal] = useState(false)
+  const [operation, setOperation] = useState('')
   const [productData, setProductData] = useState({
     productName: '',
     productPrice: '',
     expirationDate: '',
     categoryList: '',
   })
+  const [error, setError] = useState({
+    productName: false,
+    productPrice: false,
+    expirationDate: false,
+    categoryList: false,
+  })
+
+  const validation = () => {
+    const {
+      productName,
+      productPrice,
+      expirationDate,
+      categoryList,
+    } = productData
+
+    const price = parseFloat(productPrice)
+
+    const errors = {}
+
+    if (
+      !productName ||
+      !productName.trim() ||
+      productName.length < 5 ||
+      productName.length > 40
+    ) {
+      errors.productName = true
+    }
+
+    if (!price || isNaN(price) || price <= 0) {
+      errors.productPrice = true
+    }
+
+    if (!expirationDate || new Date(expirationDate).getTime() < Date.now()) {
+      errors.expirationDate = true
+    }
+
+    if (!categoryList || !Object.keys(categoryList).length) {
+      errors.categoryList = true
+    }
+
+    setError({ ...error, ...errors })
+  }
 
   const modalHandler = (e) => {
     if (e) {
@@ -31,17 +74,20 @@ const ProductsList = ({
     }
 
     if (e?.target?.name === 'confirm') {
-      productOperationHandler() /*//////*/
+      validation()
+      productOperationHandler(operation, productData)
     }
 
     setShowModal((prev) => !prev)
   }
 
   const addHandler = () => {
+    setOperation(OPERATION.ADD)
     setShowModal(true)
   }
 
   const updateHandler = (payload) => {
+    setOperation(OPERATION.UPDATE)
     setShowModal(true)
   }
 
@@ -93,6 +139,8 @@ const ProductsList = ({
         <ProductForm
           selectOptions={categories}
           fields={productData}
+          error={error}
+          setError={setError}
           setFields={setProductData}
         />
       </Modal>
