@@ -22,6 +22,6 @@ Your app is ready to be deployed!
 
 Deploy project
 
-
+Site:  products-catalog-velvetech.web.app
 Login: test@test.ru
 Password: 123456
