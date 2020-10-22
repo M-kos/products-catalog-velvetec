@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import './ProductsItem.scss'
+
 const ProductsItem = ({
   product,
   categories,
@@ -25,14 +27,16 @@ const ProductsItem = ({
 
   return (
     <li className="collection-item flex-row flex-ai-center">
-      <div>
-        <p>{product.productName}</p>
-        <p>{product.productPrice}</p>
-      </div>
-      <div>
-        <p>{product.expirationDate}</p>
-        <p>{category.name}</p>
-      </div>
+      <p className="product-item product-item-name pr-3">
+        {product.productName}
+      </p>
+      <p className="product-item product-item-price pr-3">
+        {product.productPrice + '$'}
+      </p>
+      <p className="product-item product-item-date pr-3">
+        {product.expirationDate}
+      </p>
+      <p className="product-item product-item-category pr-3">{category.name}</p>
       <div className="flex-fill"></div>
       <button
         className="btn-floating btn-small z-depth-0 green darken-1 mr-2"

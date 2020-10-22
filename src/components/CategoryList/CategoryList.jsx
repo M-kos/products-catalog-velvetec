@@ -23,6 +23,10 @@ const CategoryList = ({ categories, loading, categoryOperationHandler }) => {
     }
 
     if (e?.target?.name === 'confirm') {
+      if (!categoryName || !categoryName.trim()) {
+        return
+      }
+
       categoryOperationHandler(operation, {
         id: categoryId,
         name: categoryName,

@@ -1,7 +1,5 @@
 import React from 'react'
 
-import './CategoryItem.scss'
-
 export const CategoryItem = ({ category, updateHandler, deleteHandler }) => {
   const onAction = (e) => {
     switch (e?.currentTarget?.name) {
