@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 export const CategoryItem = ({ category, updateHandler, deleteHandler }) => {
   const onAction = (e) => {
@@ -34,4 +35,17 @@ export const CategoryItem = ({ category, updateHandler, deleteHandler }) => {
       </button>
     </li>
   )
+}
+
+CategoryItem.propTypes = {
+  category: PropTypes.shape({
+    name: PropTypes.string,
+  }),
+  updateHandler: PropTypes.func,
+  deleteHandler: PropTypes.func,
+}
+CategoryItem.defaultProps = {
+  category: {},
+  updateHandler: () => {},
+  deleteHandler: () => {},
 }

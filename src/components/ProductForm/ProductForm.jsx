@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import PropTypes from 'prop-types'
 
 import './ProductsForm.scss'
 
@@ -95,4 +96,29 @@ export const ProductForm = ({
       </div>
     </>
   )
+}
+
+ProductForm.propTypes = {
+  fields: PropTypes.shape({
+    productName: PropTypes.string,
+    productPrice: PropTypes.string,
+    expirationDate: PropTypes.string,
+    category: PropTypes.string,
+  }),
+  setFields: PropTypes.func,
+  error: PropTypes.shape({
+    productName: PropTypes.bool,
+    productPrice: PropTypes.bool,
+    expirationDate: PropTypes.bool,
+    category: PropTypes.bool,
+  }),
+  setError: PropTypes.func,
+  selectOptions: PropTypes.array,
+}
+ProductForm.defaultProps = {
+  fields: {},
+  setFields: () => {},
+  error: {},
+  setError: () => {},
+  selectOptions: [],
 }

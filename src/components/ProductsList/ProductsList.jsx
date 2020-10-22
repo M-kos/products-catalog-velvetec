@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { productOperationHandler } from 'redux/actions'
 import { OPERATION } from 'redux/constants'
+import PropTypes from 'prop-types'
 
 import { ProductsItem } from 'components/ProductsItem/ProductsItem'
 import { ProductForm } from 'components/ProductForm/ProductForm'
@@ -149,6 +150,19 @@ const ProductsList = ({
       </Modal>
     </>
   )
+}
+
+ProductsList.propTypes = {
+  products: PropTypes.array,
+  categories: PropTypes.array,
+  loading: PropTypes.bool,
+  productOperationHandler: PropTypes.func,
+}
+ProductsList.defaultProps = {
+  products: [],
+  categories: [],
+  loading: true,
+  productOperationHandler: () => {},
 }
 
 const mapStateToProps = ({ app: { products, categories, loading } }) => {

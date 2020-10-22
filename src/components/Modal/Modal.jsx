@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import './Modal.scss'
 
@@ -48,4 +49,19 @@ export const Modal = ({ show, title, actionHandler, children, style }) => {
   }
 
   return null
+}
+
+Modal.propTypes = {
+  show: PropTypes.bool,
+  title: PropTypes.string,
+  actionHandler: PropTypes.func,
+  children: PropTypes.any,
+  style: PropTypes.any,
+}
+Modal.defaultProps = {
+  show: false,
+  title: '',
+  actionHandler: () => {},
+  children: null,
+  style: null,
 }

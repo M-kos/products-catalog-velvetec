@@ -1,4 +1,4 @@
-import { APP_ACTION_CONST, LOGIN_ACTION_CONST } from 'redux/constants'
+import { LOGIN_ACTION_CONST } from 'redux/constants'
 
 const initialState = {
   user: null,

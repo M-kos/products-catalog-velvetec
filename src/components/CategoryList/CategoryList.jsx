@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { categoryOperationHandler } from 'redux/actions'
 import { OPERATION } from 'redux/constants'
+import PropTypes from 'prop-types'
 
 import { CategoryItem } from 'components/CategoryItem/CategoryItem'
 import { CircularPreloader } from 'components/CircularPreloader/CircularPreloader'
@@ -98,6 +99,17 @@ const CategoryList = ({ categories, loading, categoryOperationHandler }) => {
       </Modal>
     </>
   )
+}
+
+CategoryList.propTypes = {
+  categories: PropTypes.array,
+  loading: PropTypes.bool,
+  categoryOperationHandler: PropTypes.func,
+}
+CategoryList.defaultProps = {
+  categories: [],
+  loading: true,
+  categoryOperationHandler: () => {},
 }
 
 const mapStateToProps = ({ app: { categories, loading } }) => {

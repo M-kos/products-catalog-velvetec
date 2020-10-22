@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 import './ProductsItem.scss'
 
@@ -54,6 +55,24 @@ const ProductsItem = ({
       </button>
     </li>
   )
+}
+
+ProductsItem.propTypes = {
+  product: PropTypes.shape({
+    productName: PropTypes.string,
+    productPrice: PropTypes.string,
+    expirationDate: PropTypes.string,
+    category: PropTypes.string,
+  }),
+  categories: PropTypes.array,
+  updateHandler: PropTypes.func,
+  deleteHandler: PropTypes.func,
+}
+ProductsItem.defaultProps = {
+  product: {},
+  categories: [],
+  updateHandler: () => {},
+  deleteHandler: () => {},
 }
 
 const mapStateToProps = ({ app: { categories } }) => {

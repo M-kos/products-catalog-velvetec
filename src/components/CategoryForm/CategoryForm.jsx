@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 export const CategoryForm = ({ categoryName, setCategoryName }) => {
   const changeHandler = (e) => {
@@ -17,4 +18,13 @@ export const CategoryForm = ({ categoryName, setCategoryName }) => {
       value={categoryName}
     />
   )
+}
+
+CategoryForm.propTypes = {
+  categoryName: PropTypes.string,
+  setCategoryName: PropTypes.func,
+}
+CategoryForm.defaultProps = {
+  categoryName: '',
+  setCategoryName: () => {},
 }
