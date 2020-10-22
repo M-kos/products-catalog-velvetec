@@ -79,20 +79,18 @@ export const ProductForm = ({
         </div>
         <div className="product-input-wrapper col s6 pb-2">
           <select
-            className={error.categoryList ? 'error' : ''}
+            className={error.category ? 'error' : ''}
             required
-            name="categoryList"
+            name="category"
             onChange={changeHandler}
-            value={fields.categoryList || 'disabled'}
+            value={fields.category || 'disabled'}
           >
             <option value="disabled" disabled>
               Choose category
             </option>
             {localSelectOptions}
           </select>
-          <p className="error-message">
-            {error.categoryList && 'Wrong category'}
-          </p>
+          <p className="error-message">{error.category && 'Wrong category'}</p>
         </div>
       </div>
     </>

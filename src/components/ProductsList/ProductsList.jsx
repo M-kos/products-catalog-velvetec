@@ -10,6 +10,13 @@ import { Modal } from 'components/Modal/Modal'
 
 import './ProductsList.scss'
 
+const initData = {
+  productName: '',
+  productPrice: '',
+  expirationDate: '',
+  category: '',
+}
+
 const ProductsList = ({
   products,
   categories,
@@ -18,26 +25,16 @@ const ProductsList = ({
 }) => {
   const [showModal, setShowModal] = useState(false)
   const [operation, setOperation] = useState('')
-  const [productData, setProductData] = useState({
-    productName: '',
-    productPrice: '',
-    expirationDate: '',
-    categoryList: '',
-  })
+  const [productData, setProductData] = useState(initData)
   const [error, setError] = useState({
     productName: false,
     productPrice: false,
     expirationDate: false,
-    categoryList: false,
+    category: false,
   })
 
   const validation = () => {
-    const {
-      productName,
-      productPrice,
-      expirationDate,
-      categoryList,
-    } = productData
+    const { productName, productPrice, expirationDate, category } = productData
 
     const price = parseFloat(productPrice)
 
@@ -60,11 +57,13 @@ const ProductsList = ({
       errors.expirationDate = true
     }
 
-    if (!categoryList || !Object.keys(categoryList).length) {
-      errors.categoryList = true
+    if (!category || !Object.keys(category).length) {
+      errors.category = true
     }
 
     setError({ ...error, ...errors })
+
+    return Object.keys(errors).some((v) => errors[v])
   }
 
   const modalHandler = (e) => {
@@ -74,10 +73,13 @@ const ProductsList = ({
     }
 
     if (e?.target?.name === 'confirm') {
-      validation()
+      if (validation()) {
+        return
+      }
       productOperationHandler(operation, productData)
     }
 
+    setProductData(initData)
     setShowModal((prev) => !prev)
   }
 
@@ -87,6 +89,7 @@ const ProductsList = ({
   }
 
   const updateHandler = (payload) => {
+    setProductData(payload)
     setOperation(OPERATION.UPDATE)
     setShowModal(true)
   }
@@ -102,7 +105,7 @@ const ProductsList = ({
       return (
         <ProductsItem
           key={product.id}
-          category={product}
+          product={product}
           updateHandler={updateHandler}
           deleteHandler={deleteHandler}
         />
