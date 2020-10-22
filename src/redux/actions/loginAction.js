@@ -1,6 +1,6 @@
 import * as firebase from 'firebase'
-import { LOGIN_ACTION_CONST, APP_ACTION_CONST } from 'redux/constants'
-import { showLoader, hideLoader } from 'redux/actions'
+import { LOGIN_ACTION_CONST } from 'redux/constants'
+import { showLoader, hideLoader, appError } from 'redux/actions'
 
 export const loginShowLoader = () => ({
   type: LOGIN_ACTION_CONST.LOADING_TRUE,
@@ -28,11 +28,6 @@ export const loginFail = (type) => ({
   },
 })
 
-export const loginError = (error) => ({
-  type: APP_ACTION_CONST.ERROR,
-  payload: error,
-})
-
 export const logout = () => {
   return async (dispatch) => {
     try {
@@ -42,7 +37,7 @@ export const logout = () => {
 
       dispatch(loginFail())
     } catch (error) {
-      dispatch(loginError(error))
+      dispatch(appError(error))
     } finally {
       dispatch(loginHideLoader())
     }
@@ -58,7 +53,7 @@ export const login = (email, password) => {
 
       dispatch(loginSuccess(firebase.auth().currentUser))
     } catch (error) {
-      dispatch(loginError(error))
+      dispatch(appError(error))
     } finally {
       dispatch(loginHideLoader())
     }
@@ -78,7 +73,7 @@ export const fetchUser = () => (dispatch) => {
       dispatch(hideLoader())
     })
   } catch (error) {
-    dispatch(loginError(error))
+    dispatch(appError(error))
     dispatch(hideLoader())
   }
 }

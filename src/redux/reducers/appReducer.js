@@ -11,7 +11,6 @@ export const appReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case APP_ACTION_CONST.LOADING_FALSE:
       return { ...state, loading: false }
-
     case APP_ACTION_CONST.LOADING_TRUE:
       return { ...state, loading: true }
 
@@ -22,14 +21,6 @@ export const appReducer = (state = initialState, { type, payload }) => {
       return { ...state, categories: payload }
     case APP_ACTION_CONST.FETCH_PRODUCTS:
       return { ...state, products: payload }
-
-    case APP_ACTION_CONST.ADD_CATEGORY_ITEM:
-    case APP_ACTION_CONST.UPDATE_CATEGORY_ITEM:
-    case APP_ACTION_CONST.REMOVE_CATEGORY_ITEM:
-    case APP_ACTION_CONST.ADD_PRODUCT_ITEM:
-    case APP_ACTION_CONST.UPDATE_PRODUCT_ITEM:
-    case APP_ACTION_CONST.REMOVE_PRODUCT_ITEM:
-      break
     default:
       return state
   }

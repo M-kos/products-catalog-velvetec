@@ -15,8 +15,6 @@ export const loginReducer = (state = initialState, { type, payload }) => {
     case LOGIN_ACTION_CONST.LOGOUT:
     case LOGIN_ACTION_CONST.FETCH_USER:
       return { ...state, user: payload.user, isAuth: payload.isAuth }
-    case APP_ACTION_CONST.ERROR:
-      return { ...state, error: payload }
     default:
       return state
   }
